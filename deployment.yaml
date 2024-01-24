@@ -61,7 +61,7 @@ metadata:
 spec:
   selector:
     app: complains
-  type: ClusterIP
+  type: NodePort
   ports:
     - protocol: TCP
       port: 8085
