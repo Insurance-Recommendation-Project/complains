@@ -47,6 +47,11 @@ public class ComplaintController {
 		return null;
 	}
 
+	@GetMapping("/hello")
+	public String respoce() {
+		return "Hello world " ;
+	}
+
 	@PostMapping("/addComplaint")
 	public ResponseEntity<Complaint> addComplaint(@RequestHeader("Authorization") String token, @RequestBody Complaint c) throws Exception {
 		User user1 = tokenRepository.findByToken(token).get().getUser();
