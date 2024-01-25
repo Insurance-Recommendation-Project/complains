@@ -1,9 +1,5 @@
 package org.lsi.entities;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "complaintss") // Define the table name in MySQL
@@ -16,7 +12,27 @@ public class Complaint {
 	private String description;
 	private String date;
 	private String email;
+
 	private String reponse;
+
+
+	//
+
+
+
+	@ManyToOne
+	private User buyer;
+
+	@ManyToOne
+	private User seller;
+
+
+
+
+
+
+
+	//
 
 	public String getReponse() {
 		return reponse;
@@ -36,11 +52,13 @@ public class Complaint {
 		this.email = email;
 	}
 
-	public Complaint(String desc, String date, String email, String reponse) {
+	public Complaint(String desc, String date, String email, String reponse,User buyer, User seller) {
 		this.description = desc;
 		this.date = date;
 		this.email = email;
 		this.reponse = reponse;
+		this.buyer = buyer;
+		this.seller = seller;
 	}
 
 	public Long getId() {

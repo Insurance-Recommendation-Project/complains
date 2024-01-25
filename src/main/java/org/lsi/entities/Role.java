@@ -1,42 +1,38 @@
 package org.lsi.entities;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "roles") // Define the table name in MySQL
+@Table(name = "roles")
 public class Role {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "name", length = 20)
+  private ERole name;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_role;
+  public Role() {}
 
-	private ERole name;
+  public Role(ERole name) {
+    this.name = name;
+  }
 
-	public Role() {
-		// Default constructor
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public Role(Long id_role, ERole name) {
-		this.id_role = id_role;
-		this.name = name;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public Long getId_role() {
-		return id_role;
-	}
+  public ERole getName() {
+    return name;
+  }
 
-	public void setId_role(Long id_role) {
-		this.id_role = id_role;
-	}
-
-	public ERole getName() {
-		return name;
-	}
-
-	public void setName(ERole name) {
-		this.name = name;
-	}
+  public void setName(ERole name) {
+    this.name = name;
+  }
 }

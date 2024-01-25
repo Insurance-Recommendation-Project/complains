@@ -13,11 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+//lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/reclamation")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ComplaintController {
 
 	@Autowired
@@ -31,7 +32,7 @@ public class ComplaintController {
 
 	@Autowired
 	UserRepository userRepository;
-
+/*
 	@GetMapping("/listComplaints")
 	public ResponseEntity<List<Complaint>> listComplaints(@RequestHeader("Authorization") String token) throws Exception {
 		System.out.println("Received token: " + token);
@@ -47,12 +48,18 @@ public class ComplaintController {
 		return null;
 	}
 
-	@GetMapping("/hello")
-	public String respoce() {
-		return "Hello world " ;
-	}
+	*/
+@GetMapping("/listComplaints")
+public ResponseEntity<List<Complaint>> listComplaints() {
+	// Remove the Authorization header parameter and related token logic
+	// ...
 
-	@PostMapping("/addComplaint")
+	// Simply return the list of complaints without any authorization check
+	return new ResponseEntity<List<Complaint>>(compServ.getAll(), HttpStatus.OK);
+}
+
+
+	/*@PostMapping("/addComplaint")
 	public ResponseEntity<Complaint> addComplaint(@RequestHeader("Authorization") String token, @RequestBody Complaint c) throws Exception {
 		User user1 = tokenRepository.findByToken(token).get().getUser();
 		ERole erole = ERole.ROLE_ADMIN;
@@ -66,6 +73,14 @@ public class ComplaintController {
 		}
 		return null;
 	}
+*/
+	@PostMapping("/addComplaint")
+	public ResponseEntity<Complaint> addComplaint(@RequestBody Complaint c) {
+		// No authorization or token checks
+		compServ.addComplaint(c);
+		return new ResponseEntity<>(c, HttpStatus.OK);
+	}
+
 
 	@PostMapping("/sendResponse")
 	public ResponseEntity<Complaint> sendResponse(@RequestHeader("Authorization") String token, @RequestBody Complaint c) throws Exception {
